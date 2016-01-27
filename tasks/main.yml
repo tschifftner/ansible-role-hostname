@@ -8,12 +8,14 @@
     dest: /etc/hosts
     regexp: '^{{ ansible_all_ipv4_addresses | first }}'
     line: '{{ ansible_all_ipv4_addresses | first }} {{ hostname }}'
+  when: ansible_all_ipv4_addresses|length
 
 - name: Updates hostname (ip6) in hosts file
   lineinfile:
     dest: /etc/hosts
     regexp: '^{{ ansible_all_ipv6_addresses | first }}'
     line: '{{ ansible_all_ipv6_addresses | first }} {{ hostname }}'
+  when: ansible_all_ipv6_addresses|length
 
 - name: Prevent IP Spoofing
   template:
