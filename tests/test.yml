@@ -1,0 +1,9 @@
+---
+- hosts: localhost
+  remote_user: root
+
+  vars:
+    hostname: 'travis'
+
+  roles:
+    - ansible-role-hostname

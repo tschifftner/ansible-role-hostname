@@ -1,0 +1,21 @@
+---
+- name: Set Host name
+  hostname:
+    name: '{{hostname}}'
+
+- name: Updates hostname (ip4) in hosts file
+  lineinfile:
+    dest: /etc/hosts
+    regexp: '^{{ ansible_all_ipv4_addresses | first }}'
+    line: '{{ ansible_all_ipv4_addresses | first }} {{ hostname }}'
+
+- name: Updates hostname (ip6) in hosts file
+  lineinfile:
+    dest: /etc/hosts
+    regexp: '^{{ ansible_all_ipv6_addresses | first }}'
+    line: '{{ ansible_all_ipv6_addresses | first }} {{ hostname }}'
+
+- name: Prevent IP Spoofing
+  template:
+    src: hosts.conf
+    dest: /etc/host.conf
